@@ -33,7 +33,7 @@ jobs:
           sudo apt autoremove
       - name: test import 
         run: |
-          ENGINE=postgresql://postgres@localhost:5432/postgres
+          ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
           curl -O https://raw.githubusercontent.com/NYCPlanning/db-developments/dev/developments_build/data/housing_input_research.csv
           psql $ENGINE -c "
             CREATE TABLE housing_input_research (
@@ -47,6 +47,6 @@ jobs:
           cat housing_input_research.csv | psql $ENGINE -c "COPY housing_input_research FROM STDIN DELIMITER ',' CSV HEADER;"
       - name: test select
         run: |
-          ENGINE=postgresql://postgres@localhost:5432/postgres
+          ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
           psql $ENGINE -c "select * from housing_input_research limit 5;"
  
