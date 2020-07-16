@@ -21,9 +21,7 @@ jobs:
         run: |
           curl -O https://edm-publishing.nyc3.digitaloceanspaces.com/db-gru-qaqc/addresses-spatial/latest/output/versions.csv
           
-          read -r -d '' VERSION << EOF
-            $(csv2md versions.csv)
-          EOF
+          VERSION=$(csv2md versions.csv)
 
           echo "::set-output name=VERSION::$VERSION"
   
@@ -39,6 +37,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
+            ```
             ${{ needs.getenv.outputs.VERSION }}
-            
+            ```
             does this actuall work???
