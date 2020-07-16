@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: inspect file
-        run: echo "${{ github.event.issue.number }}"
+        run: echo "${{ needs.getenv.outputs.VERSION }}"
         
       - name: comment on issue
         uses: peter-evans/create-or-update-comment@v1
@@ -38,3 +38,5 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             ${{ needs.getenv.outputs.VERSION }}
+            
+            does this actuall work???
