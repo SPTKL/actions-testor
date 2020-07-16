@@ -11,8 +11,22 @@ jobs:
     outputs:
       VERSION: ${{ steps.initialize.outputs.VERSION }}
     steps:
+      - id: install dependencies
+        run: |
+          pip3 install csvtomd
+          
       - id: initialize
-        run: echo "::set-output name=VERSION::$MAJOR.$MINOR.$PATCH"
+        run: |
+          mkdir -p output
+          echo "geosupport_major, $MAJOR" > output/versions.csv
+          echo "geosupport_minor, $MINOR" >> output/versions.csv
+          echo "geosupport_upad, $PATCH" >> output/versions.csv
+          
+          $VERSION=$(csvtomd output/versions.csv)
+          
+          echo $VERSION
+          
+          echo "::set-output name=VERSION::$VERSION"
   
   comment:
     needs: getenv
@@ -23,5 +37,5 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            # ${{ needs.getenv.outputs.VERSION }}
+            ${{ needs.getenv.outputs.VERSION }}
           reactions: laugh
