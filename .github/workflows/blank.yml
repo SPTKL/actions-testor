@@ -9,6 +9,10 @@ jobs:
     outputs:
       VERSION: ${{ steps.initialize.outputs.VERSION }}
     steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' 
+
       - id: install
         run: |
           pip3 install csvtomd
