@@ -11,7 +11,7 @@ jobs:
     outputs:
       VERSION: ${{ steps.initialize.outputs.VERSION }}
     steps:
-      - id: install dependencies
+      - id: install
         run: |
           pip3 install csvtomd
           
