@@ -24,7 +24,7 @@ jobs:
           
           $VERSION=$(csvtomd output/versions.csv)
           
-          echo $VERSION
+          echo "$VERSION"
           
           echo "::set-output name=VERSION::$VERSION"
   
