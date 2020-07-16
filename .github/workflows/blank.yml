@@ -22,7 +22,9 @@ jobs:
           curl -O https://edm-publishing.nyc3.digitaloceanspaces.com/db-gru-qaqc/addresses-spatial/latest/output/versions.csv
           
           VERSION=$(csv2md versions.csv)
-
+          VERSION="${VERSION//'%'/'%25'}"
+          VERSION="${VERSION//$'\n'/'%0A'}"
+          VERSION="${VERSION//$'\r'/'%0D'}" 
           echo "::set-output name=VERSION::$VERSION"
   
   comment:
