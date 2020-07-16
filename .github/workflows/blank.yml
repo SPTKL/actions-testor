@@ -22,7 +22,7 @@ jobs:
           echo "geosupport_minor, $MINOR" >> output/versions.csv
           echo "geosupport_upad, $PATCH" >> output/versions.csv
           
-          $VERSION=$(csvtomd output/versions.csv)
+          VERSION=$(csvtomd output/versions.csv)
           
           echo "$VERSION"
           
