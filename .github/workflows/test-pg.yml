@@ -1,52 +1,52 @@
-name: Postgres Test
+# name: Postgres Test
 
-on: [push]
+# on: [push]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgis/postgis:11-3.0-alpine
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-    steps:
-      - name: set up env
-        run: |
-          sudo apt update
-          sudo apt install -y curl zip
-          sudo tee /etc/apt/sources.list.d/pgdg.list <<END
-          deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
-          END
-          # get the signing key and import it
-          curl -O https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          sudo apt-key add ACCC4CF8.asc
-          sudo apt update
-          sudo apt install -y postgresql-client-11 gdal-bin
-          sudo apt autoremove
-      - name: test import 
-        run: |
-          ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
-          curl -O https://raw.githubusercontent.com/NYCPlanning/db-developments/dev/developments_build/data/housing_input_research.csv
-          psql $ENGINE -c "
-            CREATE TABLE housing_input_research (
-                job_number text,
-                field text,
-                old_value text,
-                new_value text,
-                reason text,
-                edited_date text
-            );"
-          cat housing_input_research.csv | psql $ENGINE -c "COPY housing_input_research FROM STDIN DELIMITER ',' CSV HEADER;"
-      - name: test select
-        run: |
-          ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
-          psql $ENGINE -c "select * from housing_input_research limit 5;"
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     services:
+#       postgres:
+#         image: postgis/postgis:11-3.0-alpine
+#         env:
+#           POSTGRES_PASSWORD: postgres
+#         options: >-
+#           --health-cmd pg_isready
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
+#         ports:
+#           - 5432:5432
+#     steps:
+#       - name: set up env
+#         run: |
+#           sudo apt update
+#           sudo apt install -y curl zip
+#           sudo tee /etc/apt/sources.list.d/pgdg.list <<END
+#           deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
+#           END
+#           # get the signing key and import it
+#           curl -O https://www.postgresql.org/media/keys/ACCC4CF8.asc
+#           sudo apt-key add ACCC4CF8.asc
+#           sudo apt update
+#           sudo apt install -y postgresql-client-11 gdal-bin
+#           sudo apt autoremove
+#       - name: test import 
+#         run: |
+#           ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
+#           curl -O https://raw.githubusercontent.com/NYCPlanning/db-developments/dev/developments_build/data/housing_input_research.csv
+#           psql $ENGINE -c "
+#             CREATE TABLE housing_input_research (
+#                 job_number text,
+#                 field text,
+#                 old_value text,
+#                 new_value text,
+#                 reason text,
+#                 edited_date text
+#             );"
+#           cat housing_input_research.csv | psql $ENGINE -c "COPY housing_input_research FROM STDIN DELIMITER ',' CSV HEADER;"
+#       - name: test select
+#         run: |
+#           ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
+#           psql $ENGINE -c "select * from housing_input_research limit 5;"
  
