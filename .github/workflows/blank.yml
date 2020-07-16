@@ -1,0 +1,27 @@
+name: Comment testor
+on:
+  issues:
+    types: [opened, edited]
+jobs:
+  getenv:
+    if: contains(github.event.issue.title, '[')
+    container:
+      image: nycplanning/docker-geosupport:latest
+    runs-on: ubuntu-latest
+    outputs:
+      VERSION: ${{ steps.initialize.outputs.VERSION }}
+    steps:
+      - id: initialize
+        run: echo "::set-output name=VERSION::$MAJOR.$MINOR.$PATCH"
+  
+  comment:
+    needs: getenv
+    runs-on: ubuntu-latest
+    steps:
+      - name: comment on issue
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            # ${{ needs.getenv.outputs.VERSION }}
+          reactions: laugh
