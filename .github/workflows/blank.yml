@@ -42,4 +42,5 @@ jobs:
             ```
             ${{ needs.getenv.outputs.VERSION }}
             ```
+            ${{ needs.getenv.outputs.VERSION }}
             does this actuall work???
