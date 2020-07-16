@@ -21,7 +21,9 @@ jobs:
         run: |
           curl -O https://edm-publishing.nyc3.digitaloceanspaces.com/db-gru-qaqc/addresses-spatial/latest/output/versions.csv
           
-          VERSION=$(csv2md versions.csv)
+          read -r -d '' VERSION << EOM
+          $(csv2md versions.csv)
+          EOM
                     
           echo "::set-output name=VERSION::$VERSION"
   
