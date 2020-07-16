@@ -5,8 +5,6 @@ on:
 jobs:
   getenv:
     if: contains(github.event.issue.title, '[')
-    container:
-      image: nycplanning/docker-geosupport:latest
     runs-on: ubuntu-latest
     outputs:
       VERSION: ${{ steps.initialize.outputs.VERSION }}
@@ -17,25 +15,22 @@ jobs:
           
       - id: initialize
         run: |
-          mkdir -p output
-          echo "geosupport_major, $MAJOR" > output/versions.csv
-          echo "geosupport_minor, $MINOR" >> output/versions.csv
-          echo "geosupport_upad, $PATCH" >> output/versions.csv
+          curl -O https://edm-publishing.nyc3.digitaloceanspaces.com/db-gru-qaqc/addresses-spatial/latest/output/versions.csv
           
           VERSION=$(csvtomd output/versions.csv)
-          
-          echo "$VERSION"
-          
+                    
           echo "::set-output name=VERSION::$VERSION"
   
   comment:
     needs: getenv
     runs-on: ubuntu-latest
     steps:
+      - name: inspect file
+        run: echo "${{ github.event.issue.number }}"
+        
       - name: comment on issue
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
             ${{ needs.getenv.outputs.VERSION }}
-          reactions: laugh
