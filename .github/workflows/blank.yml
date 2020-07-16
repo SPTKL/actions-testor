@@ -17,6 +17,7 @@ jobs:
           pip3 install csv2md
           
       - id: initialize
+        shell: bash
         run: |
           curl -O https://edm-publishing.nyc3.digitaloceanspaces.com/db-gru-qaqc/addresses-spatial/latest/output/versions.csv
           
