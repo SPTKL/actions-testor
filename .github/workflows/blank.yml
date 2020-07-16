@@ -15,13 +15,13 @@ jobs:
 
       - id: install
         run: |
-          pip3 install csvtomd
+          pip3 install csv2md
           
       - id: initialize
         run: |
           curl -O https://edm-publishing.nyc3.digitaloceanspaces.com/db-gru-qaqc/addresses-spatial/latest/output/versions.csv
           
-          VERSION=$(csvtomd versions.csv)
+          VERSION=$(csv2md versions.csv)
                     
           echo "::set-output name=VERSION::$VERSION"
   
