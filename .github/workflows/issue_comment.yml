@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    if: contains(github.event.issue_comment.comment.body, '[build]')
     runs-on: ubuntu-latest
     steps:
     - name: test
