@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: test
-      run: echo ${{ github.event.issue_comment }}
+      run: echo "${{ github.event.issue_comment.comment }}"
