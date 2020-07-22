@@ -6,7 +6,11 @@ on:
 
 jobs:
   build:
+    if: contains(github.event.issue_comment.comment, '[build]')
     runs-on: ubuntu-latest
     steps:
     - name: test
-      run: echo "${{ github.event.issue_comment.comment }}"
+      run: |
+        echo "${{ github.event.issue_comment.issue }}"
+        echo "${{ github.event.issue_comment.comment }}"
+        echo "${{ github.event.issue_comment.sender }}"
