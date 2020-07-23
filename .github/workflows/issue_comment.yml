@@ -7,8 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.title, 'build') && 
-        contains(github.event.issue.title, 'test') 
+    if: |
+      contains(github.event.issue.title, 'build') && 
+      contains(github.event.issue.title, 'test') 
     steps:
     - name: test
       run: |
