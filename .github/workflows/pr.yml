@@ -19,8 +19,7 @@ jobs:
           pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
           pr_reviewer: "sptkl"                         # Comma-separated list (no spaces)
           pr_assignee: "sptkl"                         # Comma-separated list (no spaces)
-          pr_label: "auto-pr"                               # Comma-separated list (no spaces)
-          pr_milestone: "Milestone 1"                       # Milestone name
-          pr_draft: true                                    # Creates pull request as draft
+          pr_label: "revieq"                               # Comma-separated list (no spaces)
+          pr_draft: false                                    # Creates pull request as draft
           pr_allow_empty: true                              # Creates pull request even if there are no changes
           github_token: ${{ secrets.GITHUB_TOKEN }}
