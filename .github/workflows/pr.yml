@@ -14,9 +14,8 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          base: master
-          branch: develop
-          delete-branch: false
+          base: develop
+          branch: master
           branch-suffix: short-commit-hash
           title: '[Example] Update report'
           labels: |
