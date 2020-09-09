@@ -20,6 +20,7 @@ jobs:
           base: master
           branch: develop
           delete-branch: false
+          branch-suffix: short-commit-hash
           title: '[Example] Update report'
           labels: |
             report
