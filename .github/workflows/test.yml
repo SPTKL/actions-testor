@@ -4,18 +4,28 @@ on: [push]
 
 jobs:
   Build:
+    services:
+      postgres:
+        image: postgis/postgis:11-3.0-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     name: Building ...
     runs-on: ubuntu-20.04
+    env:
+      BUILD_ENGINE: postgresql://postgres:postgres@postgres:5432/postgres
     steps:
         - uses: actions/checkout@v2
 
         - name: Initialize
-          run: docker-compose up -d
+          run: docker-compose up -d facdb
         
-        - name: Check on Services
-          run: docker-compose ps
-        
-        - run: docker exec postgres pg_isready -d postgres -U postgres
-        
-        - name: Run Pipeliens
-          run: docker-compose exec -T facdb python3 app.py
+        - name: test
+          run: docker-compose exec -T facdb psql $BUILD_ENGINE -c "select 1 as a;"
