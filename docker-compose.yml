@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - BUILD_ENGINE=postgresql://postgres:postgres@db:5432/postgres
+      - BUILD_ENGINE=postgresql://postgres:postgres@postgres:5432/postgres
     volumes:
       - .:/src
     command: sleep infinity
