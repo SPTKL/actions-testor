@@ -1,0 +1,19 @@
+name: Build
+
+on: [push]
+
+jobs:
+  Build:
+    name: Building ...
+    runs-on: ubuntu-20.04
+    steps:
+        - uses: actions/checkout@v2
+
+        - name: Initialize
+          run: docker-compose up -d
+        
+        - name: Check on Services
+          run: docker-compose ps
+           
+        - name: Run Pipeliens
+          run: docker-compose exec -T facdb python3 app.py
