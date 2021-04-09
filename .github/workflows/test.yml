@@ -16,7 +16,7 @@ jobs:
           run: docker-compose ps
         
         - name: test connection
-          run: psql postgresql://postgres:postgres@db:5432/postgres -c "select 1 as a"
+          run: psql postgresql://postgres:postgres@0.0.0.0:5432/postgres -c "select 1 as a"
            
         - name: Run Pipeliens
           run: docker-compose exec -T facdb python3 app.py
