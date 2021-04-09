@@ -28,4 +28,4 @@ jobs:
           run: docker-compose up -d facdb
         
         - name: test
-          run: docker-compose exec -T facdb psql $BUILD_ENGINE -c "select 1 as a;"
+          run: docker-compose exec -T facdb python3 app.py
