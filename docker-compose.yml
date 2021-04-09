@@ -1,6 +1,7 @@
 version: "3"
 services:
   facdb:
+    container_name: facdb
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,6 +14,7 @@ services:
       - db
 
   db:
+    container_name: postgres
     image: postgis/postgis:11-3.0-alpine
     restart: unless-stopped
     volumes:

@@ -15,5 +15,7 @@ jobs:
         - name: Check on Services
           run: docker-compose ps
         
+        - run: docker exec postgres pg_isready -d postgres -U postgres
+        
         - name: Run Pipeliens
           run: docker-compose exec -T facdb python3 app.py
