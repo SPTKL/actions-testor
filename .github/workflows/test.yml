@@ -5,7 +5,7 @@ on: [push]
 jobs:
   Build:
     services:
-      postgres:
+      pg:
         image: postgis/postgis:11-3.0-alpine
         env:
           POSTGRES_PASSWORD: postgres
@@ -20,12 +20,12 @@ jobs:
     name: Building ...
     runs-on: ubuntu-20.04
     env:
-      BUILD_ENGINE: postgresql://postgres:postgres@postgres:5432/postgres
+      BUILD_ENGINE: postgresql://postgres:postgres@pg:5432/postgres
     steps:
         - uses: actions/checkout@v2
 
         - name: Initialize
-          run: docker-compose up -d facdb
+          run: docker build -t facdb .
         
         - name: test
-          run: docker-compose exec -T facdb python3 app.py
+          run: docker run --rm facdb python3 app.py
