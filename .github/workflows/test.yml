@@ -19,8 +19,11 @@ jobs:
   Build:
     name: Building ...
     runs-on: ubuntu-20.04
+    env:
+      ARCHIVE: yes
     steps:
       - name: test input 
+        if: $ARCHIVE == 'yes'
         run: echo "${{  github.event.inputs.archive }}"
       - name: test another
         run: echo "${{  github.event.inputs.export }}"
