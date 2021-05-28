@@ -18,4 +18,5 @@ jobs:
             repo: context.repo.repo,
             state: 'open'
           });
-          console.log(issues);
+          const filtered = issues.data.filter(issue => issue.title === 'hi hellow')
+          console.log(filtered.length);
