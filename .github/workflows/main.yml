@@ -1,0 +1,21 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+on:
+  push:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        name: Check if issue exists
+        with: 
+         github-token: ${{ secrets.GITHUB_TOKEN }}
+         script: |
+          const issues = github.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open'
+          });
+          console.log(issues);
