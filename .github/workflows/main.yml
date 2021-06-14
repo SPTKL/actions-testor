@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo context
-        run: echo "${{ github.event.release.fromJSON }}"
+        run: echo "${{ github.event.release.tag_name }}"
