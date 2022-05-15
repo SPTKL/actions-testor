@@ -1,0 +1,11 @@
+name: CI
+on:
+  release:
+    types:
+      - published  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo context
+        run: echo "${{ github.event.release.tag_name }}"

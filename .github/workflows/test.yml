@@ -1,31 +1,41 @@
-name: Build
-
-on: [push]
-
-jobs:
+name: Test - github hosted database
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: 'Would you like to rebuild DevDB? (yes/no) If no, set archive or export to yes.'
+        required: false
+        default: 'yes'
+      export:
+        description: 'Would you like to export the outputs and QAQC to DigitalOcean? (yes/no)'
+        required: true
+        default: 'no'
+      archive:
+        description: 'Would you like to archive developments and dcp_housing to EDM-DATA? (yes/no)'
+        required: false
+        default: 'no'
+jobs: 
   Build:
-    services:
-      pg:
-        image: postgis/postgis:11-3.0-alpine
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
     name: Building ...
     runs-on: ubuntu-20.04
-    env:
-      BUILD_ENGINE: postgresql://postgres:postgres@pg:5432/postgres
     steps:
-        - uses: actions/checkout@v2
-
-        - name: Initialize
-          run: docker build -t facdb .
+      - name: config
+        id: config
+        run: |
+          if [[ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]]; then
+            echo "::set-output name=rebuild::${{  github.event.inputs.archive }}"
+            echo "::set-output name=archive::${{  github.event.inputs.archive }}"
+            echo "::set-output name=export::${{  github.event.inputs.export }}"
+          else
+            echo "::set-output name=rebuild::yes"
+            echo "::set-output name=archive::no"
+            echo "::set-output name=export::no"
+          fi
+          
+      - name: test input 
+        run: echo "${{  steps.config.outputs.rebuild }}"
         
-        - name: test
-          run: docker run --rm facdb python3 app.py
+      - name: test another
+        if: steps.config.outputs.rebuild == 'yes'
+        run: echo "${{  github.event.inputs.export }}"
