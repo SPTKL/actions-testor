@@ -19,23 +19,35 @@ jobs:
   Build:
     name: Building ...
     runs-on: ubuntu-20.04
+    env:
+      ARCHIVE: yes
     steps:
-      - name: config
-        id: config
-        run: |
-          if [[ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]]; then
-            echo "::set-output name=rebuild::${{  github.event.inputs.archive }}"
-            echo "::set-output name=archive::${{  github.event.inputs.archive }}"
-            echo "::set-output name=export::${{  github.event.inputs.export }}"
-          else
-            echo "::set-output name=rebuild::yes"
-            echo "::set-output name=archive::no"
-            echo "::set-output name=export::no"
-          fi
-          
       - name: test input 
-        run: echo "${{  steps.config.outputs.rebuild }}"
-        
+        if: $ARCHIVE == 'yes'
+        run: echo "${{  github.event.inputs.archive }}"
       - name: test another
-        if: steps.config.outputs.rebuild == 'yes'
         run: echo "${{  github.event.inputs.export }}"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
