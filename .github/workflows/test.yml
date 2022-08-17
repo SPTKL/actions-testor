@@ -35,6 +35,7 @@ jobs:
             "state": "queued"
           }
           '''
+          message = message.replace("\n", "%0A").replace("%", "%25").replace("\r", "%0D")
           os.system(f"echo ::set-output name=stdout::'{json.dumps(message)}'")
       - run: echo '${{ steps.python.outputs.stdout }}'
           
