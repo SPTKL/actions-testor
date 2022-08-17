@@ -11,6 +11,7 @@ jobs:
         shell: python
         run: |
           import os
+          import json
           message='''
           {
             "conf": {
@@ -30,6 +31,6 @@ jobs:
             "state": "queued"
           }
           '''
-          os.system(f'echo ::set-output name=stdout::"{message}"')
+          os.system(f"echo ::set-output name=stdout::'{json.dumps(message)}'")
       - run: echo '${{ steps.python.outputs.stdout }}'
           
