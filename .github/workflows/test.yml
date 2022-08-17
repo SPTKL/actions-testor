@@ -10,3 +10,6 @@ jobs:
       - id: plan
         run: python -c "print('%25 %25 %0D %0D %0A %0A')"
       - run: echo '%25 %25 %0D %0D %0A %0A'
+      - id: test
+        run: echo '::set-output name=stdout::%25 %25 %0D %0D %0A %0A'
+      - run: echo ${{ steps.test.outputs.stdout }}
