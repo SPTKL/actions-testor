@@ -16,6 +16,7 @@ jobs:
         run: |
           import os
           import json
+          import sys
           message='''
           {
             "conf": {
@@ -36,6 +37,6 @@ jobs:
           }
           '''
           message = json.dumps(message).replace("\n", "%0A").replace("%", "%25").replace("\r", "%0D")
-          os.system(f"echo ::set-output name=stdout::{message}")
+          sys.stdout.write(f"::set-output name=stdout::{message}")
       - run: echo '${{ steps.python.outputs.stdout }}'
           
