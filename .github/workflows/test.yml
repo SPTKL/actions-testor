@@ -8,7 +8,5 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - id: plan
-        run: python -c "print('hello')"
-      - run: echo ${{ steps.plan.outputs.stdout }}
-      - run: echo ${{ steps.plan.outputs.stderr }}
-      - run: echo ${{ steps.plan.outputs.exitcode }}
+        run: python -c "print('%25 %25 %0D %0D %0A %0A')"
+      - run: echo '%25 %25 %0D %0D %0A %0A'
