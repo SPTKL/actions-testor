@@ -15,3 +15,11 @@ jobs:
           message='{%0A  "conf": {%0A    "bucket": "tfd-sandbox",%0A    "dataset": "recall_mock",%0A    "file_path": "data-dropbox-template/dropbox/recall_mock/fake_reason_2022-08-15.csv",%0A    "project_id": "tfddevelopment",%0A    "table_id": "fake_reason_2022_08_15"%0A  },%0A  "dag_id": "example_tutorial",%0A  "dag_run_id": "manual__2022-08-17T22:01:45.336816+00:00",%0A  "end_date": null,%0A  "execution_date": "2022-08-17T22:01:45.336816+00:00",%0A  "external_trigger": true,%0A  "logical_date": "2022-08-17T22:01:45.336816+00:00",%0A  "start_date": null,%0A  "state": "queued"%0A}%0A'
           echo ::set-output name=stdout::$message
       - run: echo '${{ steps.test.outputs.stdout }}'
+      - id: python
+        shell: python
+        run: |
+          import os
+          message='''{%0A  "conf": {%0A    "bucket": "tfd-sandbox",%0A    "dataset": "recall_mock",%0A    "file_path": "data-dropbox-template/dropbox/recall_mock/fake_reason_2022-08-15.csv",%0A    "project_id": "tfddevelopment",%0A    "table_id": "fake_reason_2022_08_15"%0A  },%0A  "dag_id": "example_tutorial",%0A  "dag_run_id": "manual__2022-08-17T22:16:10.258268+00:00",%0A  "end_date": null,%0A  "execution_date": "2022-08-17T22:16:10.258268+00:00",%0A  "external_trigger": true,%0A  "logical_date": "2022-08-17T22:16:10.258268+00:00",%0A  "start_date": null,%0A  "state": "queued"%0A}%0A'''
+          os.system(f"echo ::set-output name=stdout::'{message}'")
+      - run: echo '${{ steps.python.outputs.stdout }}'
+          
