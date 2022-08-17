@@ -1,53 +1,14 @@
 name: Test - github hosted database
 on:
   push:
-  workflow_dispatch:
-    inputs:
-      rebuild:
-        description: 'Would you like to rebuild DevDB? (yes/no) If no, set archive or export to yes.'
-        required: false
-        default: 'yes'
-      export:
-        description: 'Would you like to export the outputs and QAQC to DigitalOcean? (yes/no)'
-        required: true
-        default: 'no'
-      archive:
-        description: 'Would you like to archive developments and dcp_housing to EDM-DATA? (yes/no)'
-        required: false
-        default: 'no'
+  
 jobs: 
   Build:
     name: Building ...
     runs-on: ubuntu-20.04
-    env:
-      ARCHIVE: yes
     steps:
-      - name: test input 
-        if: $ARCHIVE == 'yes'
-        run: echo "${{  github.event.inputs.archive }}"
-      - name: test another
-        run: echo "${{  github.event.inputs.export }}"
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+      - id: plan
+        run: python -c "print('hello')"
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
