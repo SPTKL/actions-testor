@@ -1,11 +1,22 @@
-name: CI
+name: Sync Develop to Main
+
 on:
-  release:
-    types:
-      - published  
+  workflow_dispatch:
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  sync:
+    runs-on: ubuntu-20.04
     steps:
-      - name: echo context
-        run: echo "${{ github.event.release.tag_name }}"
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+
+      - name: Reset main branch
+        run: |
+          git fetch origin develop:develop
+          git reset --hard develop
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: master
