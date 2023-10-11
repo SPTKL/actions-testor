@@ -24,7 +24,7 @@ jobs:
       run: poetry install
     
     - name: Python Semantic Release
-      uses: python-semantic-release/python-semantic-release@v8
+      uses: python-semantic-release/python-semantic-release@v8.1.1
       with:
         force: "patch"
         push: "false"
