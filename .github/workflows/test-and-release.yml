@@ -6,7 +6,7 @@ on:
 jobs:
   bump-version:
     permissions:
-      contents: 'read'
+      contents: 'write'
       id-token: 'write'
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest
