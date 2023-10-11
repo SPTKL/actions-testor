@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "testor"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["lol hi <email@email.com>"]
 readme = "README.md"
