@@ -24,4 +24,4 @@ jobs:
       run: poetry install
     
     - name: Python Semantic Release
-      run: semantic-release version --print --noop -vv
+      run: poetry run semantic-release version --print --noop -vv
