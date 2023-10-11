@@ -11,6 +11,8 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest
     name: "Bump version and create changelog with commitizen"
+    outputs:
+      revision: ${{ steps.output.outputs.revision }}
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -41,5 +43,5 @@ jobs:
     steps: 
       - name: Check out
         run: |
-          echo ${{ needs.bump-version.steps.output.revision }}
+          echo ${{ needs.bump-version.output.revision }}
   
