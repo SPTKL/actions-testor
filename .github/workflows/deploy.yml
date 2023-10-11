@@ -9,5 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-        echo "Deploying to GitHub Pages"
-        echo "${{ github.sha }} ${{github.ref_name}}"
+          echo "Deploying to GitHub Pages"
+          echo "${{ github.sha }} ${{github.ref_name}}"
