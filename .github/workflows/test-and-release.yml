@@ -43,5 +43,5 @@ jobs:
     steps: 
       - name: Check out
         run: |
-          echo ${{ needs.bump-version.output.revision }}
+          echo ${{ needs.bump-version.outputs.revision }}
   
