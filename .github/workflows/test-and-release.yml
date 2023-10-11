@@ -13,6 +13,7 @@ jobs:
     name: "Bump version and create changelog with commitizen"
     outputs:
       revision: ${{ steps.output.outputs.revision }}
+      released: ${{ steps.output.outputs.released }}
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -34,6 +35,7 @@ jobs:
       
       - name: Release
         if: ${{ env.LATEST_TAG != env.REVISION }}
+        id: release
         uses: softprops/action-gh-release@v1
         with:
           body_path: "body.md"
@@ -45,9 +47,11 @@ jobs:
         id: output
         run: |
           echo "revision=${{ env.REVISION }}" >> "$GITHUB_OUTPUT"
+          echo "released=${{ steps.released.conclusion }}" >> "$GITHUB_OUTPUT
     
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ needs.bump-version.outputs.released == 'success' }}
     needs: bump-version
     steps: 
       - name: Check out
