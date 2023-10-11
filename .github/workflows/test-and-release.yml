@@ -24,4 +24,7 @@ jobs:
       run: poetry install
     
     - name: Python Semantic Release
-      run: poetry run semantic-release version --print --noop -vv
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "action@github.com"
+        poetry run semantic-release publish -D commit_author="github-actions <action@github.com>"
