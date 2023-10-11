@@ -47,7 +47,7 @@ jobs:
         id: output
         run: |
           echo "revision=${{ env.REVISION }}" >> "$GITHUB_OUTPUT"
-          echo "released=${{ steps.release.conclusion }}" >> "$GITHUB_OUTPUT
+          echo "released=${{ steps.release.conclusion }}" >> "$GITHUB_OUTPUT"
     
   deploy:
     runs-on: ubuntu-latest
