@@ -1,0 +1,31 @@
+name: CI/CD
+on:
+  push:
+  
+jobs:
+  test:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install poetry
+      run: pip install poetry
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version-file: pyproject.toml
+        cache: 'poetry'
+
+    - name: Install dependencies
+      run: poetry install
+    
+    - name: Python Semantic Release
+      uses: python-semantic-release/python-semantic-release@v8
+      with:
+        force: "patch"
+        push: "false"
+        build_metadata: "abc123"
