@@ -5,19 +5,15 @@ description = ""
 authors = ["lol hi <email@email.com>"]
 readme = "README.md"
 
-[tool.semantic_release]
-version_variable = [
-    "pyproject.toml:tool.poetry.version",
-]
-branch = "main"
-version_source = "commit"
+[tool.poetry.group.dev.dependencies]
+commitizen = "^3.10.0"
+
+[tool.commitizen]
+version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.31.0"
-
-[tool.poetry.group.dev.dependencies]
-python-semantic-release = "^8.1.1"
 
 [build-system]
 requires = ["poetry-core"]
