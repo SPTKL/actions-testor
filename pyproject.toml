@@ -5,6 +5,13 @@ description = ""
 authors = ["lol hi <email@email.com>"]
 readme = "README.md"
 
+[tool.semantic_release]
+version_variable = [
+    "pyproject.toml:tool.poetry.version",
+]
+branch = "main"
+version_source = "commit"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.31.0"
