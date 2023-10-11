@@ -24,7 +24,14 @@ jobs:
           changelog_increment_filename: body.md
           changelog: false
       
+      - name: get latest tag
+        run: |
+          LATEST_TAG=$(gh release list --limit 1 | awk '{print $2}' | head -n 1)
+          echo "Latest tag is: $LATEST_TAG"
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+      
       - name: Release
+        if: ${{ env.LATEST_TAG != env.REVISION }}
         uses: softprops/action-gh-release@v1
         with:
           body_path: "body.md"
