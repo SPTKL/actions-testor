@@ -2,7 +2,7 @@ on:
   repository_dispatch:
     types: [trigger]
 
-name: Workflow
+run-name: Workflow - ${{ github.event.client_payload.cadence }}
 
 jobs:
   custom-job:
@@ -13,4 +13,4 @@ jobs:
       - name: Print custom payload
         run: |
           echo "Event type: ${{ github.event.action }}"
-          echo "Custom data: ${{ github.event.client_payload.custom_data }}"
+          echo "Custom data: ${{ github.event.client_payload.cadence }}"
