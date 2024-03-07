@@ -21,4 +21,3 @@ jobs:
               repo: context.repo.repo,
               ...payload
             });
-          github-token: ${{secrets.GITHUB_TOKEN}}
