@@ -1,8 +1,8 @@
-name: Workflow - ${{ github.event.client_payload.cadence }}
-
 on:
   repository_dispatch:
     types: [trigger]
+
+name: Workflow
 
 jobs:
   custom-job:
