@@ -1,0 +1,24 @@
+on:
+  push:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger repository_dispatch event
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const payload = {
+              event_type: 'trigger',
+              client_payload: {
+                cadence: 'daily'
+              }
+            };
+            
+            github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ...payload
+            });
+          github-token: ${{secrets.GITHUB_TOKEN}}
